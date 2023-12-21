@@ -1,0 +1,15 @@
+.imageItem {
+    display: flex;
+    max-width: 100%;
+    width: 330px;
+    height: auto;
+  }
+  
+  .image {
+    width: 100%;
+  }
+  
+  .image:hover {
+    transform: scale(1.05);
+    cursor: zoom-in;
+  }
