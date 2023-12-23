@@ -14,6 +14,7 @@ export const App = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [modalImage, setModalImage] = useState('');
   const [error, setError] = useState('');
+  const [totalHits, setTotalHits] = useState(0);
 
   const getImages = useCallback(async () => {
     if (!inputData) {
@@ -22,6 +23,7 @@ export const App = () => {
     setIsLoading(true);
     try {
       const { hits, total } = await fetchImage(inputData, page);
+      setTotalHits(total); 
       if (total) {
         setItems(prevState => [...prevState, ...hits]);
       }
@@ -32,6 +34,7 @@ export const App = () => {
       setIsLoading(false);
     }
   }, [inputData, page]);
+
 
   const formSubmit = newInputData => {
     if (newInputData !== inputData) {
@@ -68,7 +71,7 @@ export const App = () => {
 
       {isLoading && <Loader />}
       {error && <h1>{error}</h1>}
-      {items.length > 0 && !isLoading && <Button onClick={handleClick} />}
+      {items.length > 0 && items.length < totalHits && !isLoading && <Button onClick={handleClick} />}
       {isShowModal && (
         <Modal
           isOpenModal={isShowModal}
